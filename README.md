@@ -140,13 +140,4 @@ All transitions should feel intentional and light — not decorative:
 
 ---
 
-## Open Questions
-
-- [ ] **File naming** — `captured-ideas.md`, `tasks.md`, or user-configurable per repo?
-- [ ] **Multiple lists per repo** — strictly one file, or allow named lists (e.g. `backlog.md`, `sprint.md`)? If multiple, how does the UI surface them?
-- [ ] **Task order in file** — newest on top, or preserve drag-drop order (file order = display order)?
-- [ ] **Conflict resolution** — if the same file is edited on two devices before a push, how does the app handle a merge conflict?
-- [ ] **FAB scope** — push only the current repo, or a global "push all pending" action?
-- [ ] **Priority in Markdown** — frontmatter YAML (`---` block at top of task) or inline field as used above?
-- [ ] **AI agent prompt** — HTML comment (invisible in rendered Markdown) or a visible blockquote at the top of the file?
-- [ ] **Repo creation flow** — public or private by default? Does the app commit an initial `captured-ideas.md` on creation?
+> Open questions and decisions are tracked in [QUESTIONS.md](./QUESTIONS.md).
