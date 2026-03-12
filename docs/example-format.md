@@ -2,6 +2,8 @@
 
 Your task: this is the prompt for the ai aigent to understand this markdown file and understand it as a living document, checking off tasks
 
+See the actual task list in [docs/captured-tasks.md](./captured-tasks.md).
+
 
 ## Task 1 (name)
 Created: timestamp

@@ -1,0 +1,138 @@
+# intro
+Okay, I normally capture my ideas, thoughts and tasks for you on the go. and this is my unstructured list for you. I tried to kind of cluster them already, but I think you'll have to go through them with a bit more love of detail. please always feel free to ask the questions if you're slightly in doubt how important something is, if you understand something correctly. I don't want false security. I want to establish an atmosphere of trust and togetherness. Thank you. 
+
+## „Card from someone“ feeling mit Name, ggf. Bild // Asking for your feedback + „speaking is faster than typing“ // option for input? // track the clicks?
+Created: 2026-03-12 14:00
+last_edited: 2026-03-12 14:00
+- [ ] checked status (?)
+- [x] important?
+
+### Description
+very important: Redesign to boost credibility on the receiver magic link page by appearing better designed, nice and welcoming like a trustworthy page, that makes them not think twice before sharing a voice note.
+I'm thinking of something that looks like a personal note. But also maybe there is this kind of fuzzy, more tactile look that you might know from Apple Notes.  picture like a rounded card in the middle of the screen and at the bottom of of it, there would be the name of the sender and a picture of the sender, maybe his or her email. So it kind of looks like a greeting note, you know, with a header that the sender can and a short description and then of course the option to record a voice note or book an appointment. 
+
+## sender
+Created: 2026-03-12 14:00
+last_edited: 2026-03-12 14:00
+- [ ] checked status (?)
+- [ ] important?
+
+### Description
+When the sender creates a new link, especially in mobile, there should be a share sheet, you know, that he can share it right away. Right now it's copied straight to the clipboard, which is super nice. But yeah, the share sheet or open email or something, you know, that makes sense. do ask me before creating this. 
+
+## ux update for sender dashboard
+Created: 2026-03-12 14:00
+last_edited: 2026-03-12 14:00
+- [ ] checked status (?)
+- [ ] important?
+
+### Description
+reduce listview to mininum, delete button "open responses", since clicking the  card itself will open the detail page. also, it should be more prominent to see the title/description of a link and how many responses there are (mostly it's just one, cause it'll be sent only ot one person, so it should rather be answered green? or something?)
+
+## Renaming / Rebranding / landing page
+Created: 2026-03-12 14:00
+last_edited: 2026-03-12 14:00
+- [ ] checked status (?)
+- [ ] important?
+
+### Description
+Tellmi.io / tell.me / heyspeak 
+
+## sender dashboard
+Created: 2026-03-12 14:00
+last_edited: 2026-03-12 14:00
+- [ ] checked status (?)
+- [ ] important?
+
+### Description
+Tab buttons je nach mind. 1 link: all, answered, unanswered, archived 
+
+## sender / create new links
+Created: 2026-03-12 14:00
+last_edited: 2026-03-12 14:00
+- [ ] checked status (?)
+- [ ] important?
+
+### Description
+- Sender can send/include last line "thank you - NAME" or something similar
+- maybe his AVATAR (round) with a border at the end of a description / text on the receover page
+- he sees a preview of what the link/message might look like when creating a new link
+
+## Special Magic Links
+Created: 2026-03-12 14:00
+last_edited: 2026-03-12 14:00
+- [ ] checked status (?)
+- [ ] important?
+
+### Description
+- maybe we should give "links" a new name, that are a bit in line with the rebranding (not important right now)
+- maybe we should enable URL params for magic links. Imagine, we have one magic link (special edition) we send to multiple people and include a url-param with a dynamic first name? Or we create a magic link (of the same pattern - something I called "Campaign" link before, of you find that somewhere?) through an automation and want to dynamically  // automatic link Vervielfältigung bei klick on immer denselben wie bei feedback abfrage? // Campaign Links könnten bspw. instead of "l", "z" und können (nicht müssen) url params haben... Every magic link session of a campaign link is a new link, meaning an own Supabase row // welche art von url parametern sollten wir hinzufügen können: sender-mail, receiver-name, ...?
+
+## login / Sign Up
+Created: 2026-03-12 14:00
+last_edited: 2026-03-12 14:00
+- [ ] checked status (?)
+- [ ] important?
+
+### Description
+- What if a person is already signed up? // Progressive login (or too expensive)?
+- sign in with google should be on both log in and sign up because it is both right?
+- should we save the last login method and indicate it "last used" just as Lovable does?
+- Weiterleitung nach Google login ist zu falscher URL, kann das sein? Kann man die URL nicht mitgeben beim login, also die nehmen, von der der Google login abgerufen wird (falls wir die url nochmal ändern sollte es keine env. variable sein)
+- nach normalem email sign up landet man hier https://surv-ai-ochre.vercel.app/auth/sign-up-success. ich erwarte hier, dass man, sobald man (bspw. mit einem anderen gerät auf den email bestätigungslink geklickt hat), entweder automatisch weitergeleitet wird (also vielleicht im hintergrund eine abfrage läuft oder streamer oder wie das heißt?) oder dass man nach einigen sekunden dort einen button sieht "Login", der einen dann auch direkt einloggt. man hat ja eben erst sign up erstellt. macht es sinn, auf https://surv-ai-ochre.vercel.app/auth/sign-up-success/email-user weitergeleitet zu werden, damit das klappt?
+- on login, when focusing the email input and tapping "tab" on desktop for example, one expects to land in the password input field, but instead one focuses "Forgot your Password". can we skip "Forgot your password" somehow?
+- When logging in and I already have an account, I click on "Login" and it shows the loading animation, but it stops before I actually go to the login page. And I think that's bad UX. So I wanted to load until I change URLs to be logged in. I mean, of course, with exception, if the login fails, it stops. Does that make sense? 
+
+## Ask für Customer feedback (while testing) // claims
+Created: 2026-03-12 14:00
+last_edited: 2026-03-12 14:00
+- [ ] checked status (?)
+- [ ] important?
+
+### Description
+a fab button or a button inside the users (senders) profile, that might open a small popup to give feedback: This one should, of course, also be a voicemail to me, the admin
+
+## raise trust on receiver page
+Created: 2026-03-12 14:00
+last_edited: 2026-03-12 14:00
+- [ ] checked status (?)
+- [ ] important?
+
+### Description
+- faq or something? "What is this page"?
+- Receiver sieht zertifikat // ISO? // Pill mit siegel zu surv.ai
+- Show "sent from SENDER_NAME" / Sender can opt out?? 
+- redesign magic link page: does it need a top bar for desktop (if there is one, all links here should open in a new tab, so the original magic-link-page should stay accessible // antigravity 
+
+## OG when sharing a link
+Created: 2026-03-12 14:00
+last_edited: 2026-03-12 14:00
+- [ ] checked status (?)
+- [ ] important?
+
+### Description
+- magic links should have a "personalized" OG that states senders name and maybe (?) the matter
+
+## Design
+Created: 2026-03-12 14:00
+last_edited: 2026-03-12 14:00
+- [ ] checked status (?)
+- [ ] important?
+
+### Description
+- Playful detail animations story mit ux designer
+- Receiver page: Record button mit label + record icon // smooth animation to pause /stop // too dense in mobile
+- REceiver: When clicking „Record“, one should NOT press another button again, but it should start recording right away (maybe already noted)...
+
+## Landing Page
+Created: 2026-03-12 14:00
+last_edited: 2026-03-12 14:00
+- [ ] checked status (?)
+- [ ] important?
+
+### Description
+- Trusted // usedby 3244 Product Managers, Founder, Agencies...
+- in the future, we should have a testimonial section with 2 rows of slowly moving, social media post like citations/feedbacks from our users...
+- another cool slogan: "Insights in minutes, not meetings"
+- maybe we show different sub pages? Like when you hover over a button "XYZ" a focus group opens for all the different customers (senders) "for Product Owners", "for Founders", "for Agencies" ... that all lead to different cases, of how it helps
+- landing page: "contact ceo" for trustworthiness, they can record a voice message and it's kind of my magic-link to them // but they calender link and MUST enter their email-address (check the correct email format!) before submitting. so, they'd click on "contact CEO", a stylish popup opens "Contact Thomas", enter email address, and when the email is valid, they can send a voice message and then when they submit it, it shows "Thanks for your request, I'll get back to you as quick as possible and it shows my linkedin: https://www.linkedin.com/in/thomaslorenz91/
