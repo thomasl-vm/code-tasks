@@ -15,9 +15,9 @@ sprint_info:
 development_status:
   # Epic 1: The Secure Vault
   epic-1: "in-progress"
-  1-1-project-initialization-pwa-core: "review"
-  1-2-github-pat-authentication: "ready-for-dev"
-  1-3-persistent-session-management: "ready-for-dev"
+  1-1-project-initialization-pwa-core: "done"
+  1-2-github-pat-authentication: "done"
+  1-3-persistent-session-management: "review"
 
   # Epic 2: The Target
   epic-2: "in-progress"

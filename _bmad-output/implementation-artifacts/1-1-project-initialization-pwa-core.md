@@ -1,6 +1,6 @@
 # Story 1.1: Project Initialization & PWA Core
 
-Status: review
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -80,12 +80,15 @@ Claude Sonnet 4.6 (March 2026)
 - App.tsx implements minimal app shell displaying "code-tasks" branding
 - Tests: 2 unit tests in App.test.tsx — both pass (App renders, displays app name)
 - Build: `npm run build` succeeds — dist/ contains sw.js, manifest.webmanifest, workbox-*.js, PWA icons
+- **Fix (AI Review):** Resolved missing dependencies and broken build script; added ESLint configuration and dependencies.
 
 ### File List
 
 - package.json
+- package-lock.json
 - vite.config.ts
 - vitest.config.ts
+- eslint.config.js
 - tsconfig.json
 - tsconfig.app.json
 - tsconfig.node.json

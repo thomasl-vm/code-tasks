@@ -1,6 +1,6 @@
 # Story 1.2: GitHub PAT Authentication & Encryption
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -22,19 +22,19 @@ so that I can access my repositories without re-entering credentials every sessi
 
 ## Tasks / Subtasks
 
-- [ ] Implement Security Utilities (AC: 3)
-  - [ ] Create `src/services/storage/crypto-utils.ts` for AES-GCM encryption/decryption using the Web Crypto API.
-  - [ ] Implement `encryptData` and `decryptData` with PBKDF2 key derivation (600,000 iterations).
-- [ ] Implement Auth Service (AC: 2, 5)
-  - [ ] Create `src/services/github/auth-service.ts` using `octokit`.
-  - [ ] Implement `validateToken(token: string)` and `getAuthenticatedUser(octokit: Octokit)` methods.
-- [ ] Build Auth Feature UI (AC: 1, 6, 7)
-  - [ ] Create `src/features/auth/components/AuthForm.tsx` using React 19 `useActionState` for handling the submission action.
-  - [ ] Use GitHub Primer (Dark Dimmed) styling for the form and inputs.
-  - [ ] Implement redirect logic to the Pulse screen upon success.
-- [ ] State Management (AC: 5)
-  - [ ] Update `src/stores/useSyncStore.ts` to include `isAuthenticated`, `user`, and `token` (encrypted) state.
-  - [ ] Ensure the "Write-Through" pattern: data is encrypted and saved to LocalStorage BEFORE updating the store.
+- [x] Implement Security Utilities (AC: 3)
+  - [x] Create `src/services/storage/crypto-utils.ts` for AES-GCM encryption/decryption using the Web Crypto API.
+  - [x] Implement `encryptData` and `decryptData` with PBKDF2 key derivation (600,000 iterations).
+- [x] Implement Auth Service (AC: 2, 5)
+  - [x] Create `src/services/github/auth-service.ts` using `octokit`.
+  - [x] Implement `validateToken(token: string)` and `getAuthenticatedUser(octokit: Octokit)` methods.
+- [x] Build Auth Feature UI (AC: 1, 6, 7)
+  - [x] Create `src/features/auth/components/AuthForm.tsx` using React 19 `useActionState` for handling the submission action.
+  - [x] Use GitHub Primer (Dark Dimmed) styling for the form and inputs.
+  - [x] Implement redirect logic to the Pulse screen upon success.
+- [x] State Management (AC: 5)
+  - [x] Update `src/stores/useSyncStore.ts` to include `isAuthenticated`, `user`, and `token` (encrypted) state.
+  - [x] Ensure the "Write-Through" pattern: data is encrypted and saved to LocalStorage BEFORE updating the store.
 
 ## Dev Notes
 
@@ -60,10 +60,39 @@ so that I can access my repositories without re-entering credentials every sessi
 
 ### Agent Model Used
 
-Gemini 2.0 Flash (March 2026)
+Claude Opus 4.6 (March 2026)
 
 ### Debug Log References
 
+- Installed `octokit` and `zustand` dependencies with `--legacy-peer-deps` due to eslint-plugin-react-hooks peer conflict with eslint v10
+- Installed `@testing-library/dom` and `@testing-library/user-event` as missing test peer dependencies
+
 ### Completion Notes List
 
+- **crypto-utils.ts**: AES-GCM encryption/decryption with PBKDF2 (600,000 iterations), 16-byte salt, 12-byte IV. Buffer layout: `[salt(16) | iv(12) | ciphertext]`. Configurable iteration count for faster testing.
+- **auth-service.ts**: `validateToken()` creates Octokit instance and calls `getAuthenticated` endpoint. Returns typed `TokenValidationResult` union. `getAuthenticatedUser()` extracts login, avatarUrl, name. 4 unit tests with mocked Octokit.
+- **useSyncStore.ts**: Zustand store with `isAuthenticated`, `user`, `encryptedToken` state. `setAuth()` implements write-through pattern (encrypt → localStorage → store update). **Security:** Encryption now uses a user-provided passphrase instead of a hardcoded key.
+- **AuthForm.tsx**: React 19 `useActionState` for form submission. Added "App Passphrase" input to provide user-controlled encryption key. GitHub Dark Dimmed styling. Redirects to Pulse via `onSuccess` callback.
+- **App.tsx**: Updated to conditionally render AuthForm or main interface based on auth state.
+- **App.test.tsx**: Updated to test auth-gated rendering with mocked store.
+- **Fix (AI Review):** Eliminated hardcoded encryption passphrase; optimized test performance by using lower PBKDF2 iterations in test environments.
+
 ### File List
+
+- `src/services/storage/crypto-utils.ts`
+- `src/services/storage/crypto-utils.test.ts`
+- `src/services/github/auth-service.ts`
+- `src/services/github/auth-service.test.ts`
+- `src/stores/useSyncStore.ts`
+- `src/stores/useSyncStore.test.ts`
+- `src/features/auth/components/AuthForm.tsx`
+- `src/features/auth/components/AuthForm.test.tsx`
+- `src/App.tsx`
+- `src/App.test.tsx`
+- `package.json`
+- `package-lock.json`
+- `eslint.config.js` (verified)
+
+## Change Log
+
+- 2026-03-13: Implemented GitHub PAT authentication with AES-GCM encryption, Octokit token validation, Zustand state management with write-through pattern, and React 19 AuthForm UI with Dark Dimmed styling. 22 tests added across 5 test files, all passing.

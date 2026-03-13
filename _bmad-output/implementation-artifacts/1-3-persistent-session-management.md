@@ -1,6 +1,6 @@
 # Story 1.3: Persistent Session Management
 
-Status: ready-for-dev
+Status: review
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -22,19 +22,19 @@ so that I can start capturing ideas immediately without logging in every time I 
 
 ## Tasks / Subtasks
 
-- [ ] Implement Hydration & Guard (AC: 1, 4)
-  - [ ] Configure `useSyncStore.ts` with `persist` middleware and `skipHydration: true`.
-  - [ ] Create `src/components/auth/AuthGuard.tsx` using React 19 `use(hydrationPromise)` to suspend rendering until hydration is complete.
-- [ ] Implement Session Recovery (AC: 2, 3, 5)
-  - [ ] Update `auth-service.ts` to include `revalidateSession(encryptedToken: string)` logic.
-  - [ ] Implement `decryptData` integration for token recovery.
-  - [ ] Ensure `Octokit` is re-initialized with the recovered token.
-- [ ] Build Loading UI (AC: 4)
-  - [ ] Create a lightweight `AuthSkeleton.tsx` for the Splash/Loading state.
-  - [ ] Wrap the main application entry in `Suspense` targeting the `AuthGuard`.
-- [ ] Handle Session Failure (AC: 6)
-  - [ ] Implement `clearSession()` in `useSyncStore.ts` to wipe LocalStorage and reset state.
-  - [ ] Ensure automatic redirect to `/auth` on validation failure.
+- [x] Implement Hydration & Guard (AC: 1, 4)
+  - [x] Configure `useSyncStore.ts` with `persist` middleware and `skipHydration: true`.
+  - [x] Create `src/components/auth/AuthGuard.tsx` using React 19 `use(hydrationPromise)` to suspend rendering until hydration is complete.
+- [x] Implement Session Recovery (AC: 2, 3, 5)
+  - [x] Update `auth-service.ts` to include `revalidateSession(encryptedToken: string)` logic.
+  - [x] Implement `decryptData` integration for token recovery.
+  - [x] Ensure `Octokit` is re-initialized with the recovered token.
+- [x] Build Loading UI (AC: 4)
+  - [x] Create a lightweight `AuthSkeleton.tsx` for the Splash/Loading state.
+  - [x] Wrap the main application entry in `Suspense` targeting the `AuthGuard`.
+- [x] Handle Session Failure (AC: 6)
+  - [x] Implement `clearSession()` in `useSyncStore.ts` to wipe LocalStorage and reset state.
+  - [x] Ensure automatic redirect to `/auth` on validation failure.
 
 ## Dev Notes
 
@@ -59,10 +59,37 @@ so that I can start capturing ideas immediately without logging in every time I 
 
 ### Agent Model Used
 
-Gemini 2.0 Flash (March 2026)
+Claude Opus 4.6 (March 2026)
 
 ### Debug Log References
 
+None.
+
 ### Completion Notes List
 
+- Refactored `useSyncStore.ts` to use Zustand `persist` middleware with `skipHydration: true` and `createJSONStorage`. The `encryptedToken` is now stored as base64 string (not ArrayBuffer) for JSON-safe serialization.
+- Passphrase is cached in `sessionStorage` during `setAuth()` to enable auto-login across page reloads within a browser session. On browser restart, the user re-enters their passphrase (token remains encrypted in localStorage).
+- Created `src/components/auth/hydration.ts` with the core hydration logic: rehydrate store -> check auth state -> decrypt token -> validate with GitHub API -> clear on failure. Supports offline mode (trusts local state when `navigator.onLine` is false).
+- Created `src/components/auth/AuthGuard.tsx` using React 19 `use(hydrationPromise)` pattern to integrate with Suspense. Hydration promise is cached (singleton) for the app lifetime.
+- Created `src/components/ui/AuthSkeleton.tsx` as a lightweight loading spinner shown during hydration via Suspense fallback.
+- Updated `App.tsx` to wrap content in `<Suspense fallback={<AuthSkeleton />}><AuthGuard>...</AuthGuard></Suspense>`. Removed legacy `useState(authComplete)` pattern.
+- `clearAuth()` wipes both localStorage (via persist middleware) and sessionStorage passphrase. When `isAuthenticated` becomes false, `AppContent` renders the `AuthForm`.
+- Session recovery reuses existing `validateToken()` from `auth-service.ts` which creates a new `Octokit` instance with the decrypted token.
+- All 35 tests pass (8 test files), zero regressions. TypeScript and ESLint clean (no new issues).
+
+### Change Log
+
+- 2026-03-13: Implemented persistent session management (Story 1.3) - hydration, session recovery, loading UI, session failure handling.
+
 ### File List
+
+- `src/stores/useSyncStore.ts` (modified) - Added persist middleware, skipHydration, base64 token storage, sessionStorage passphrase caching
+- `src/stores/useSyncStore.test.ts` (modified) - Updated tests for persist middleware, sessionStorage passphrase, new clearAuth behavior
+- `src/components/auth/AuthGuard.tsx` (new) - React 19 use() + Suspense auth guard component
+- `src/components/auth/hydration.ts` (new) - Core hydration/session recovery logic
+- `src/components/auth/hydration.test.ts` (new) - Tests for hydration: validation, offline, failure, caching
+- `src/components/auth/AuthGuard.test.tsx` (new) - Tests for AuthGuard Suspense integration
+- `src/components/ui/AuthSkeleton.tsx` (new) - Loading skeleton component
+- `src/components/ui/AuthSkeleton.test.tsx` (new) - AuthSkeleton test
+- `src/App.tsx` (modified) - Wrapped with Suspense + AuthGuard, removed legacy authComplete state
+- `src/App.test.tsx` (modified) - Updated to mock AuthGuard and AuthSkeleton
